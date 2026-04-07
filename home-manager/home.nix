@@ -108,7 +108,7 @@ in
 
   programs.eww = {
     enable = true;
-    configDir = ./eww;
+    #configDir = ./eww;
   };
 
   fonts.fontconfig = {
@@ -176,7 +176,7 @@ in
         tex_flavor = "latex";
         maplocalleader = " ";
         vimtex_compiler_method = "latexmk";
-        vimtex_view_method = "sioyek";
+        vimtex_view_method = "zathura";
         vimtex_compiler_latexmk = {
           callback = 1;
           continuous = 1;
@@ -193,11 +193,20 @@ in
 
       };
 
-      lazy.plugins.vimtex = {
-        enabled = true;
-        package = pkgs.vimPlugins.vimtex;
-        lazy = true;
-        ft = "tex";
+      lazy.plugins = {
+        vimtex = {
+          enabled = true;
+          package = pkgs.vimPlugins.vimtex;
+          lazy = true;
+          ft = "tex";
+        };
+      };
+
+      extraPlugins = {
+        marks = {
+          package = pkgs.vimPlugins.marks-nvim;
+          setup = "require('marks').setup{}";
+        };
       };
 
       theme = {
